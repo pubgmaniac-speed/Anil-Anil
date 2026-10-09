@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
+    <title>A & A | Wedding Invitation</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Manjari:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@1,400;1,600&family=Manjari:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
             --gold: #dfa849;
             --gold-light: #fef0cd;
             --gold-dark: #8a6519;
-            --maroon: #4a0d13;
-            --bg-color: #1a0507;
+            --bg-color: #120305;
         }
 
         * {
@@ -23,20 +22,111 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html {
+        html, body {
             scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Manjari', sans-serif;
-            background: radial-gradient(circle at 50% 20%, #2e080e, var(--bg-color));
+            background: #120305;
             color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
+            font-family: 'Manjari', sans-serif;
             text-align: center;
+            overflow-x: hidden;
         }
 
-        /* Ambient floating petals */
+        /* ---------------- FULL SCREEN HERO OVERLAY (TAP TO OPEN) ---------------- */
+        #welcomeOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999;
+            background-color: #0b0203;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.2s;
+            overflow: hidden;
+        }
+
+        .hero-bg-img {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover;
+            filter: brightness(0.48);
+            transform: scale(1.03);
+            transition: transform 10s ease-out;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 5px;
+            font-size: 13px;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .monogram-box {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .monogram-letter {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 80px;
+            font-weight: 400;
+            color: #fff;
+            line-height: 1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+        }
+        .monogram-amp {
+            font-family: 'Great Vibes', cursive;
+            font-size: 40px;
+            color: var(--gold);
+        }
+
+        .hero-date-line {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 3px;
+            font-size: 12px;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            margin-bottom: 45px;
+        }
+
+        /* Tap to Open Pill Button */
+        .tap-open-btn {
+            background: rgba(18, 3, 5, 0.45);
+            border: 1px solid var(--gold);
+            color: #fff;
+            padding: 14px 34px;
+            border-radius: 40px;
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 25px rgba(223, 168, 73, 0.35);
+            animation: pulseBtn 2.2s infinite ease-in-out;
+            transition: all 0.3s;
+        }
+        .tap-open-btn:active {
+            transform: scale(0.95);
+        }
+        @keyframes pulseBtn {
+            0%, 100% { box-shadow: 0 0 15px rgba(223, 168, 73, 0.25); border-color: var(--gold); }
+            50% { box-shadow: 0 0 30px rgba(223, 168, 73, 0.7); border-color: #fff; }
+        }
+
+        /* ---------------- MAIN INVITATION PAGE ---------------- */
         .ambient-petals {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -75,11 +165,6 @@
             font-size: 13px;
             backdrop-filter: blur(8px);
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.2s, background 0.3s;
-        }
-        .music-btn:hover {
-            transform: scale(1.05);
-            background: rgba(74, 13, 19, 0.95);
         }
         .wave-bar {
             width: 3px;
@@ -98,26 +183,24 @@
             100% { height: 18px; }
         }
 
-        /* Container */
         .container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 50px 20px 100px;
+            padding: 60px 20px 100px;
             position: relative;
             z-index: 10;
         }
 
-        /* --- Scroll Animation Classes --- */
+        /* Scroll Reveal Effect */
         .scroll-reveal {
             opacity: 0;
-            transform: translateY(40px) scale(0.96);
+            transform: translateY(35px);
             transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: opacity, transform;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
         }
         .scroll-reveal.visible {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
 
         .header-title {
@@ -127,7 +210,6 @@
             text-shadow: 0 2px 12px rgba(223, 168, 73, 0.5);
             margin-bottom: 5px;
         }
-
         .sub-title {
             letter-spacing: 4px;
             font-size: 13px;
@@ -135,11 +217,11 @@
             text-transform: uppercase;
         }
 
-        /* Miniature Cartoon Couple */
+        /* Cartoon Couple Animation */
         .couple-wrapper {
-            margin: 15px auto;
+            margin: 10px auto;
             width: 220px;
-            height: 150px;
+            height: 140px;
             position: relative;
         }
         .mini-couple {
@@ -160,10 +242,10 @@
         }
         @keyframes floatHeart {
             0% { transform: translateY(0) scale(0.6); opacity: 1; }
-            100% { transform: translateY(-50px) scale(1.3); opacity: 0; }
+            100% { transform: translateY(-40px) scale(1.3); opacity: 0; }
         }
 
-        /* Scratch Card Section */
+        /* Scratch Card */
         .scratch-card-box {
             position: relative;
             width: 320px;
@@ -177,7 +259,6 @@
             -webkit-user-select: none;
         }
 
-        /* Revealed Content Beneath */
         .scratch-secret {
             position: absolute;
             top: 0; left: 0;
@@ -216,7 +297,6 @@
             color: #aaa;
         }
 
-        /* Canvas Foil Layer */
         #scratchCanvas {
             position: absolute;
             top: 0; left: 0;
@@ -226,7 +306,6 @@
             transition: opacity 0.6s ease;
         }
 
-        /* 3D Shimmer Light Beam Effect */
         .foil-shimmer {
             position: absolute;
             top: -50%; left: -60%;
@@ -242,7 +321,6 @@
             40%, 100% { left: 160%; }
         }
 
-        /* Scratch Me Guide */
         .scratch-guide {
             position: absolute;
             top: 50%; left: 50%;
@@ -281,7 +359,6 @@
             border-radius: 10px;
         }
 
-        /* Sparkle Particle Canvas */
         #particleCanvas {
             position: absolute;
             top: 0; left: 0;
@@ -290,7 +367,7 @@
             z-index: 8;
         }
 
-        /* Countdown Section */
+        /* Countdown */
         .countdown-title {
             font-family: 'Cinzel', serif;
             font-size: 16px;
@@ -323,7 +400,7 @@
             text-transform: uppercase;
         }
 
-        /* Venue Box */
+        /* Venue */
         .venue-card {
             background: rgba(46, 8, 14, 0.55);
             border: 1px solid var(--gold);
@@ -346,7 +423,22 @@
 </head>
 <body>
 
-    <!-- Ambient falling petals -->
+    <!-- ---------------- FULL SCREEN COVER (AS IN SCREENSHOT) ---------------- -->
+    <div id="welcomeOverlay">
+        <img src="cover.jpg" alt="Wedding Couple" class="hero-bg-img">
+        <div class="hero-content">
+            <p class="hero-subtitle">A Celebration of Love</p>
+            <div class="monogram-box">
+                <span class="monogram-letter">A</span>
+                <span class="monogram-amp">&</span>
+                <span class="monogram-letter">A</span>
+            </div>
+            <p class="hero-date-line">Save the Date &middot; 24 October 2026</p>
+            <button class="tap-open-btn" onclick="openInvitation()">TAP TO OPEN &#10022;</button>
+        </div>
+    </div>
+
+    <!-- Petals Background -->
     <div class="ambient-petals" id="petals"></div>
 
     <!-- Music Player with song1.mp3 -->
@@ -360,15 +452,15 @@
         <source src="song1.mp3" type="audio/mp3">
     </audio>
 
+    <!-- MAIN PAGE CONTENT (REVEALED AFTER TAP) -->
     <div class="container">
 
-        <!-- Section 1: Intro -->
         <div class="scroll-reveal visible">
-            <h1 class="header-title">Together Forever</h1>
-            <p class="sub-title">Save The Date</p>
+            <h1 class="header-title">Save The Date</h1>
+            <p class="sub-title">Wedding Invitation</p>
         </div>
 
-        <!-- Section 2: Couple Animation -->
+        <!-- Cartoon Couple Swaying Dance -->
         <div class="scroll-reveal">
             <div class="couple-wrapper">
                 <div class="floating-heart" style="left: 20%; animation-delay: 0s;">💖</div>
@@ -400,11 +492,11 @@
             </div>
         </div>
 
-        <!-- Section 3: Scratch Card -->
+        <!-- Luxury Scratch Card -->
         <div class="scroll-reveal">
             <div class="scratch-card-box">
                 <div class="scratch-secret">
-                    <span class="secret-badge">💍 You're Invited</span>
+                    <span class="secret-badge">💍 Special Day</span>
                     <div class="secret-date">October 24, 2026</div>
                     <div class="secret-hall">EMS Community Hall</div>
                     <div class="secret-loc">Alappuzha, Kerala</div>
@@ -421,7 +513,7 @@
             </div>
         </div>
 
-        <!-- Section 4: Countdown -->
+        <!-- Countdown -->
         <div class="scroll-reveal">
             <div class="countdown-title">Counting Down To The Big Day</div>
             <div class="timer-box">
@@ -432,7 +524,7 @@
             </div>
         </div>
 
-        <!-- Section 5: Venue -->
+        <!-- Venue -->
         <div class="scroll-reveal">
             <div class="venue-card">
                 <h3>Venue & Details</h3>
@@ -443,23 +535,25 @@
     </div>
 
     <script>
-        // --- Smooth Scroll Reveal Observer ---
-        const revealElements = document.querySelectorAll('.scroll-reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, {
-            threshold: 0.15
-        });
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // Audio Handling
+        // Open Invitation + Song Autoplay
         const audio = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
         let isPlaying = false;
+
+        function openInvitation() {
+            // Play song immediately on tap
+            audio.play().then(() => {
+                isPlaying = true;
+                musicBtn.classList.add('playing');
+            }).catch(e => console.log(e));
+
+            // Fade out the hero welcome overlay
+            const overlay = document.getElementById('welcomeOverlay');
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.visibility = 'hidden';
+            }, 1200);
+        }
 
         function toggleAudio() {
             if (isPlaying) {
@@ -473,12 +567,17 @@
                 }).catch(() => {});
             }
         }
-        document.body.addEventListener('click', function initPlay() {
-            if (!isPlaying) toggleAudio();
-            document.body.removeEventListener('click', initPlay);
-        }, { once: true });
 
-        // Floating Rose Petals
+        // Scroll Reveal Trigger
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Rose Petals
         const petalContainer = document.getElementById('petals');
         for (let i = 0; i < 20; i++) {
             const p = document.createElement('div');
@@ -504,7 +603,7 @@
             }
         }, 1000);
 
-        // Gold Scratch Card & Particle Effects
+        // Gold Foil Scratch Card
         const canvas = document.getElementById('scratchCanvas');
         const ctx = canvas.getContext('2d');
         const pCanvas = document.getElementById('particleCanvas');
