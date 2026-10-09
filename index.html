@@ -102,30 +102,42 @@
         .container {
             max-width: 600px;
             margin: 0 auto;
-            padding: 40px 20px 80px;
+            padding: 50px 20px 100px;
             position: relative;
             z-index: 10;
         }
 
+        /* --- Scroll Animation Classes --- */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.96);
+            transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+            will-change: opacity, transform;
+            margin-bottom: 35px;
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
         .header-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 42px;
+            font-size: 46px;
             color: var(--gold);
-            text-shadow: 0 2px 10px rgba(223, 168, 73, 0.4);
+            text-shadow: 0 2px 12px rgba(223, 168, 73, 0.5);
             margin-bottom: 5px;
         }
 
         .sub-title {
-            letter-spacing: 3px;
-            font-size: 12px;
+            letter-spacing: 4px;
+            font-size: 13px;
             color: var(--gold-light);
             text-transform: uppercase;
-            margin-bottom: 25px;
         }
 
         /* Miniature Cartoon Couple */
         .couple-wrapper {
-            margin: 20px auto 30px;
+            margin: 15px auto;
             width: 220px;
             height: 150px;
             position: relative;
@@ -156,7 +168,7 @@
             position: relative;
             width: 320px;
             height: 220px;
-            margin: 0 auto 35px;
+            margin: 0 auto;
             border-radius: 18px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(223, 168, 73, 0.25);
             border: 2px solid var(--gold);
@@ -181,7 +193,7 @@
         .secret-badge {
             background: rgba(223, 168, 73, 0.2);
             color: var(--gold);
-            padding: 3px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
             font-size: 11px;
             border: 1px solid var(--gold);
@@ -195,12 +207,12 @@
             margin-bottom: 5px;
         }
         .secret-hall {
-            font-size: 13px;
+            font-size: 14px;
             color: #ddd;
             margin-bottom: 3px;
         }
         .secret-loc {
-            font-size: 11px;
+            font-size: 12px;
             color: #aaa;
         }
 
@@ -230,7 +242,7 @@
             40%, 100% { left: 160%; }
         }
 
-        /* Scratch Me Ripple & Coin Guide */
+        /* Scratch Me Guide */
         .scratch-guide {
             position: absolute;
             top: 50%; left: 50%;
@@ -281,7 +293,7 @@
         /* Countdown Section */
         .countdown-title {
             font-family: 'Cinzel', serif;
-            font-size: 15px;
+            font-size: 16px;
             color: var(--gold);
             letter-spacing: 2px;
             margin-bottom: 15px;
@@ -290,14 +302,14 @@
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 35px;
         }
         .time-col {
-            background: rgba(74, 13, 19, 0.4);
+            background: rgba(74, 13, 19, 0.45);
             border: 1px solid rgba(223, 168, 73, 0.4);
-            border-radius: 12px;
-            padding: 10px 14px;
+            border-radius: 14px;
+            padding: 12px 14px;
             min-width: 65px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         .time-num {
             font-family: 'Cinzel', serif;
@@ -313,22 +325,22 @@
 
         /* Venue Box */
         .venue-card {
-            background: rgba(46, 8, 14, 0.5);
+            background: rgba(46, 8, 14, 0.55);
             border: 1px solid var(--gold);
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 20px;
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5);
         }
         .venue-card h3 {
             font-family: 'Cinzel', serif;
             color: var(--gold);
-            margin-bottom: 8px;
-            font-size: 18px;
+            margin-bottom: 10px;
+            font-size: 20px;
         }
         .venue-card p {
             color: #ddd;
-            font-size: 13px;
-            line-height: 1.6;
+            font-size: 14px;
+            line-height: 1.8;
         }
     </style>
 </head>
@@ -349,89 +361,102 @@
     </audio>
 
     <div class="container">
-        <h1 class="header-title">Together Forever</h1>
-        <p class="sub-title">Save The Date</p>
 
-        <!-- Cute Miniature Couple Chibi Dance -->
-        <div class="couple-wrapper">
-            <div class="floating-heart" style="left: 20%; animation-delay: 0s;">💖</div>
-            <div class="floating-heart" style="left: 75%; animation-delay: 1.2s;">✨</div>
-            <svg class="mini-couple" viewBox="0 0 200 140">
-                <!-- Groom (Left) -->
-                <g id="groom">
-                    <circle cx="75" cy="50" r="24" fill="#ffdbac"/>
-                    <path d="M51 45 C51 25, 99 25, 99 45 C95 32, 60 30, 51 45 Z" fill="#2c1a0e"/>
-                    <circle cx="68" cy="50" r="3" fill="#222"/>
-                    <circle cx="82" cy="50" r="3" fill="#222"/>
-                    <path d="M72 58 Q75 62 78 58" stroke="#333" stroke-width="1.5" fill="none"/>
-                    <path d="M52 74 L98 74 L94 130 L56 130 Z" fill="#fff" stroke="#dfa849" stroke-width="2"/>
-                    <!-- Gold Neriyathu / Kasavu -->
-                    <path d="M55 74 L95 125" stroke="#dfa849" stroke-width="4"/>
-                </g>
-                <!-- Bride (Right) -->
-                <g id="bride">
-                    <circle cx="125" cy="53" r="23" fill="#ffdbac"/>
-                    <path d="M102 48 C102 24, 148 24, 148 48 C145 32, 108 30, 102 48 Z" fill="#2c1a0e"/>
-                    <!-- Jasmine Flowers (Mulla Poo) -->
-                    <circle cx="140" cy="40" r="4" fill="#fff"/>
-                    <circle cx="144" cy="46" r="4" fill="#fff"/>
-                    <circle cx="142" cy="52" r="4" fill="#fff"/>
-                    <!-- Eyes & Smile -->
-                    <circle cx="118" cy="53" r="3" fill="#222"/>
-                    <circle cx="132" cy="53" r="3" fill="#222"/>
-                    <circle cx="125" cy="47" r="2.5" fill="#c00"/>
-                    <path d="M122 61 Q125 65 128 61" stroke="#333" stroke-width="1.5" fill="none"/>
-                    <!-- Kasavu Saree -->
-                    <path d="M106 76 L144 76 L148 130 L102 130 Z" fill="#fff" stroke="#dfa849" stroke-width="2"/>
-                    <path d="M108 82 Q125 95 142 82" stroke="#dfa849" stroke-width="3" fill="none"/>
-                </g>
-            </svg>
+        <!-- Section 1: Intro -->
+        <div class="scroll-reveal visible">
+            <h1 class="header-title">Together Forever</h1>
+            <p class="sub-title">Save The Date</p>
         </div>
 
-        <!-- Luxury Scratch Card -->
-        <div class="scratch-card-box">
-            <!-- Hidden details -->
-            <div class="scratch-secret">
-                <span class="secret-badge">💍 You're Invited</span>
-                <div class="secret-date">October 24, 2026</div>
-                <div class="secret-hall">EMS Community Hall</div>
-                <div class="secret-loc">Alappuzha, Kerala</div>
-            </div>
-
-            <!-- Canvas for Scratching -->
-            <canvas id="scratchCanvas" width="320" height="220"></canvas>
-
-            <!-- 3D Shimmer Light Beam -->
-            <div class="foil-shimmer" id="foilShimmer"></div>
-
-            <!-- Sparkle Dust Layer -->
-            <canvas id="particleCanvas" width="320" height="220"></canvas>
-
-            <!-- Scratch Guide -->
-            <div class="scratch-guide" id="scratchGuide">
-                <div class="scratch-coin">🪙</div>
-                <div class="scratch-guide-text">SCRATCH HERE</div>
+        <!-- Section 2: Couple Animation -->
+        <div class="scroll-reveal">
+            <div class="couple-wrapper">
+                <div class="floating-heart" style="left: 20%; animation-delay: 0s;">💖</div>
+                <div class="floating-heart" style="left: 75%; animation-delay: 1.2s;">✨</div>
+                <svg class="mini-couple" viewBox="0 0 200 140">
+                    <g id="groom">
+                        <circle cx="75" cy="50" r="24" fill="#ffdbac"/>
+                        <path d="M51 45 C51 25, 99 25, 99 45 C95 32, 60 30, 51 45 Z" fill="#2c1a0e"/>
+                        <circle cx="68" cy="50" r="3" fill="#222"/>
+                        <circle cx="82" cy="50" r="3" fill="#222"/>
+                        <path d="M72 58 Q75 62 78 58" stroke="#333" stroke-width="1.5" fill="none"/>
+                        <path d="M52 74 L98 74 L94 130 L56 130 Z" fill="#fff" stroke="#dfa849" stroke-width="2"/>
+                        <path d="M55 74 L95 125" stroke="#dfa849" stroke-width="4"/>
+                    </g>
+                    <g id="bride">
+                        <circle cx="125" cy="53" r="23" fill="#ffdbac"/>
+                        <path d="M102 48 C102 24, 148 24, 148 48 C145 32, 108 30, 102 48 Z" fill="#2c1a0e"/>
+                        <circle cx="140" cy="40" r="4" fill="#fff"/>
+                        <circle cx="144" cy="46" r="4" fill="#fff"/>
+                        <circle cx="142" cy="52" r="4" fill="#fff"/>
+                        <circle cx="118" cy="53" r="3" fill="#222"/>
+                        <circle cx="132" cy="53" r="3" fill="#222"/>
+                        <circle cx="125" cy="47" r="2.5" fill="#c00"/>
+                        <path d="M122 61 Q125 65 128 61" stroke="#333" stroke-width="1.5" fill="none"/>
+                        <path d="M106 76 L144 76 L148 130 L102 130 Z" fill="#fff" stroke="#dfa849" stroke-width="2"/>
+                        <path d="M108 82 Q125 95 142 82" stroke="#dfa849" stroke-width="3" fill="none"/>
+                    </g>
+                </svg>
             </div>
         </div>
 
-        <!-- Countdown -->
-        <div class="countdown-title">Counting Down To The Big Day</div>
-        <div class="timer-box">
-            <div class="time-col"><div class="time-num" id="d">00</div><div class="time-label">Days</div></div>
-            <div class="time-col"><div class="time-num" id="h">00</div><div class="time-label">Hours</div></div>
-            <div class="time-col"><div class="time-num" id="m">00</div><div class="time-label">Mins</div></div>
-            <div class="time-col"><div class="time-num" id="s">00</div><div class="time-label">Secs</div></div>
+        <!-- Section 3: Scratch Card -->
+        <div class="scroll-reveal">
+            <div class="scratch-card-box">
+                <div class="scratch-secret">
+                    <span class="secret-badge">💍 You're Invited</span>
+                    <div class="secret-date">October 24, 2026</div>
+                    <div class="secret-hall">EMS Community Hall</div>
+                    <div class="secret-loc">Alappuzha, Kerala</div>
+                </div>
+
+                <canvas id="scratchCanvas" width="320" height="220"></canvas>
+                <div class="foil-shimmer" id="foilShimmer"></div>
+                <canvas id="particleCanvas" width="320" height="220"></canvas>
+
+                <div class="scratch-guide" id="scratchGuide">
+                    <div class="scratch-coin">🪙</div>
+                    <div class="scratch-guide-text">SCRATCH HERE</div>
+                </div>
+            </div>
         </div>
 
-        <!-- Venue Details -->
-        <div class="venue-card">
-            <h3>Venue & Details</h3>
-            <p><strong>EMS Community Hall</strong><br>Alappuzha, Kerala<br>2026 ഒക്ടോബർ 24</p>
+        <!-- Section 4: Countdown -->
+        <div class="scroll-reveal">
+            <div class="countdown-title">Counting Down To The Big Day</div>
+            <div class="timer-box">
+                <div class="time-col"><div class="time-num" id="d">00</div><div class="time-label">Days</div></div>
+                <div class="time-col"><div class="time-num" id="h">00</div><div class="time-label">Hours</div></div>
+                <div class="time-col"><div class="time-num" id="m">00</div><div class="time-label">Mins</div></div>
+                <div class="time-col"><div class="time-num" id="s">00</div><div class="time-label">Secs</div></div>
+            </div>
         </div>
+
+        <!-- Section 5: Venue -->
+        <div class="scroll-reveal">
+            <div class="venue-card">
+                <h3>Venue & Details</h3>
+                <p><strong>EMS Community Hall</strong><br>Alappuzha, Kerala<br>2026 ഒക്ടോബർ 24</p>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // Background Audio Handling
+        // --- Smooth Scroll Reveal Observer ---
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15
+        });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Audio Handling
         const audio = document.getElementById('bgMusic');
         const musicBtn = document.getElementById('musicBtn');
         let isPlaying = false;
@@ -466,7 +491,7 @@
             petalContainer.appendChild(p);
         }
 
-        // Live Countdown to Oct 24, 2026
+        // Countdown Timer
         const weddingDate = new Date("October 24, 2026 10:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -479,7 +504,7 @@
             }
         }, 1000);
 
-        // Gold Foil Scratch Card + Particles
+        // Gold Scratch Card & Particle Effects
         const canvas = document.getElementById('scratchCanvas');
         const ctx = canvas.getContext('2d');
         const pCanvas = document.getElementById('particleCanvas');
@@ -491,7 +516,6 @@
         let isRevealed = false;
         let particles = [];
 
-        // Draw Gold Foil Surface
         function setupGoldFoil() {
             const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
             grad.addColorStop(0, '#d4af37');
@@ -501,7 +525,6 @@
             ctx.fillStyle = grad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Subtle Damask Pattern
             ctx.strokeStyle = 'rgba(255,255,255,0.18)';
             ctx.lineWidth = 1.5;
             for (let i = -100; i < canvas.width + 100; i += 22) {
@@ -512,7 +535,6 @@
         }
         setupGoldFoil();
 
-        // Sparkle & Gold Dust Animation Loop
         function addGoldDust(x, y) {
             for (let i = 0; i < 6; i++) {
                 particles.push({
@@ -565,7 +587,6 @@
             ctx.arc(x, y, 22, 0, Math.PI * 2);
             ctx.fill();
 
-            // Hide guide icon immediately upon scratching
             if (guide) guide.style.opacity = '0';
             if (shimmer) shimmer.style.display = 'none';
 
@@ -590,7 +611,6 @@
             canvas.style.opacity = '0';
             setTimeout(() => { canvas.style.display = 'none'; }, 600);
 
-            // Celebration Blast (Confetti & Fireworks)
             if (typeof confetti === 'function') {
                 confetti({
                     particleCount: 80,
@@ -617,7 +637,6 @@
             }
         }
 
-        // Mouse & Touch events
         ['mousedown', 'touchstart'].forEach(evt => {
             canvas.addEventListener(evt, (e) => {
                 isDrawing = true;
