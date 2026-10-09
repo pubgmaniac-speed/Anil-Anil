@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Anil this is for you</title>
 
+  <!-- WhatsApp Link Preview Meta Tags -->
   <meta property="og:title" content="Anil this is for you">
-  <meta property="og:description" content="Join us on 24 October 2026 at EMS Community Hall, Paravoor.">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80">
+  <meta property="og:description" content="Anil weds Moopan · 24 October 2026 at EMS Community Hall, Paravoor.">
+  <meta property="og:image" content="cover.jpg">
   <meta property="og:type" content="website">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,6 +28,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
@@ -38,24 +40,24 @@
       overflow-x: hidden;
     }
 
-    /* Cover / Tap Screen */
+    /* 1. Cover Screen with your Photo */
     #cover {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
       background-color: var(--deep-green);
-      background-image: linear-gradient(rgba(15, 44, 39, 0.75), rgba(15, 44, 39, 0.85)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80');
+      background-image: linear-gradient(rgba(15, 44, 39, 0.25), rgba(15, 44, 39, 0.88)), url('cover.jpg');
       background-size: cover;
       background-position: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
       text-align: center;
-      padding: 24px;
+      padding: 40px 24px;
       z-index: 99999;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
     }
 
     #cover.hidden {
@@ -65,49 +67,51 @@
     }
 
     .tagline {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--gold-light);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
 
     .cover-initials {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem;
+      font-size: 4.5rem;
       color: #ffffff;
-      margin-bottom: 20px;
+      line-height: 1;
+      margin-bottom: 15px;
     }
 
     .cover-initials span {
       font-style: italic;
       color: var(--gold-light);
-      font-size: 2.2rem;
+      font-size: 2.4rem;
     }
 
     .cover-date {
       font-size: 0.75rem;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.85);
-      margin-bottom: 35px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 30px;
     }
 
     .btn-open {
-      background: transparent;
+      background: rgba(15, 44, 39, 0.7);
       border: 1px solid var(--gold-light);
       color: #ffffff;
-      padding: 12px 32px;
+      padding: 14px 36px;
       border-radius: 50px;
-      font-size: 0.78rem;
-      letter-spacing: 0.2em;
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       cursor: pointer;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
-    /* Content sections */
     section {
-      padding: 60px 24px;
+      padding: 65px 24px;
       text-align: center;
     }
 
@@ -122,28 +126,28 @@
     .family-text {
       font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       color: #4a5450;
       margin-bottom: 12px;
     }
 
     .couple-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 3rem;
+      font-size: 3.2rem;
       line-height: 1.2;
       color: #12211e;
     }
 
     .couple-title span {
       display: block;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       color: var(--gold);
       margin: 4px 0;
       font-style: italic;
     }
 
     .invitation-quote {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       max-width: 320px;
       margin: 25px auto;
@@ -156,53 +160,58 @@
       padding: 30px 20px;
       max-width: 300px;
       margin: 25px auto 0;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.04);
     }
 
     .calendar-month {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
+      color: #2b3935;
     }
 
     .calendar-day {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
+      font-size: 4.8rem;
       line-height: 1;
       color: var(--deep-green);
       margin: 10px 0;
     }
 
     .calendar-footer {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: #3b4743;
     }
 
     .timer-sec {
       background-color: var(--deep-green);
       color: #ffffff;
-      padding: 45px 20px;
+      padding: 50px 20px;
     }
 
     .timer-grid {
       display: flex;
       justify-content: center;
       gap: 16px;
-      margin-top: 20px;
+      margin-top: 25px;
     }
 
     .time-unit {
-      min-width: 55px;
+      min-width: 58px;
     }
 
     .time-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
+      line-height: 1;
       color: #ffffff;
+      margin-bottom: 6px;
     }
 
     .time-label {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: rgba(255,255,255,0.65);
@@ -211,17 +220,17 @@
     .venue-sec {
       background: var(--deep-green);
       color: #ffffff;
-      padding: 70px 20px;
+      padding: 75px 20px;
     }
 
     .venue-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
+      font-size: 2.2rem;
       margin: 15px 0 6px;
     }
 
     .venue-place {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       opacity: 0.85;
       margin-bottom: 25px;
     }
@@ -239,7 +248,7 @@
 
     footer {
       background-color: #091d19;
-      padding: 40px 20px;
+      padding: 45px 20px;
       color: #ffffff;
       text-align: center;
     }
@@ -252,7 +261,7 @@
       border: 1px solid var(--gold-light);
       color: #ffffff;
       border-radius: 30px;
-      padding: 8px 16px;
+      padding: 10px 18px;
       font-size: 0.75rem;
       letter-spacing: 0.12em;
       cursor: pointer;
@@ -263,38 +272,40 @@
 </head>
 <body>
 
+  <!-- Audio Player -->
   <audio id="bg-audio" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/05/16/audio_c89e0839e9.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+    <source src="song.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Audio Control Button -->
   <button id="music-btn" onclick="toggleAudio()">&#9834; <span id="music-txt">Pause</span></button>
 
-  <!-- Cover Screen -->
+  <!-- 1. Cover Screen with Photo & A&M Initials -->
   <div id="cover">
     <p class="tagline">A Celebration of Love</p>
-    <div class="cover-initials">A <span>&amp;</span> A</div>
+    <div class="cover-initials">A <span>&amp;</span> M</div>
     <p class="cover-date">Save the Date &middot; 24 October 2026</p>
     <button class="btn-open" onclick="openInvitation()">Tap to Open &#10022;</button>
   </div>
 
-  <!-- Hero -->
+  <!-- 2. Hero Section: Anil weds Moopan -->
   <section>
     <p class="sub-head">With Joy in Our Hearts</p>
     <p class="family-text">Together with their families</p>
     <h1 class="couple-title">
-      Adhithya
+      Anil
       <span>&amp;</span>
-      Anandhu
+      Moopan
     </h1>
     <p class="invitation-quote">
       invite you to witness the beginning of a lifetime &mdash; a day woven with love, laughter, and the people who mean the most.
     </p>
   </section>
 
-  <!-- Date -->
+  <!-- 3. Date & Calendar -->
   <section style="background: rgba(0,0,0,0.02);">
     <p class="sub-head">The Day We Say &ldquo;I Do&rdquo;</p>
-    <h2 class="couple-title" style="font-size: 2rem;">One beautiful<br>beginning</h2>
+    <h2 class="couple-title" style="font-size: 2.2rem;">One beautiful<br>beginning</h2>
     <div class="calendar-card">
       <div class="calendar-month">October</div>
       <div class="calendar-day">24</div>
@@ -302,7 +313,7 @@
     </div>
   </section>
 
-  <!-- Timer -->
+  <!-- 4. Live Countdown -->
   <section class="timer-sec">
     <p class="sub-head" style="color: var(--gold-light);">Counting Down to Forever</p>
     <div class="timer-grid">
@@ -313,18 +324,19 @@
     </div>
   </section>
 
-  <!-- Venue -->
+  <!-- 5. Venue Section -->
   <section class="venue-sec">
     <p class="sub-head" style="color: var(--gold-light);">The Celebration</p>
-    <h2 class="venue-name">Meet us there</h2>
-    <p class="venue-place">EMS Community Hall, Paravoor, Alappuzha</p>
+    <h2 class="venue-name">EMS Community Hall</h2>
+    <p class="venue-place">Paravoor, Alappuzha</p>
     <a class="map-btn" href="https://maps.google.com/?q=EMS+Community+Hall+Paravoor+Alappuzha" target="_blank">Open in Maps &#8599;</a>
   </section>
 
-  <!-- Footer -->
+  <!-- 6. Footer -->
   <footer>
-    <div class="cover-initials" style="font-size: 2rem; margin-bottom: 8px;">A <span>&amp;</span> A</div>
+    <div class="cover-initials" style="font-size: 2.2rem; margin-bottom: 8px;">A <span>&amp;</span> M</div>
     <p style="font-style: italic; color: #dfc88b; font-size: 0.9rem;">We cannot wait to celebrate with you.</p>
+    <p style="font-size: 0.7rem; letter-spacing: 0.2em; opacity: 0.6; margin-top: 10px;">24 &middot; 10 &middot; 2026</p>
   </footer>
 
   <script>
