@@ -1,548 +1,639 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ml">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Anil this is for you</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Great+Vibes&family=Manjari:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --gold: #dfa849;
+            --gold-light: #fef0cd;
+            --gold-dark: #8a6519;
+            --maroon: #4a0d13;
+            --bg-color: #1a0507;
+        }
 
-  <!-- WhatsApp Link Preview Meta Tags -->
-  <meta property="og:title" content="Anil this is for you">
-  <meta property="og:description" content="Anil weds Moopan · 24 October 2026 at EMS Community Hall, Paravoor.">
-  <meta property="og:image" content="cover.jpg">
-  <meta property="og:type" content="website">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-  <!-- Google Fonts & Canvas Confetti -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        html {
+            scroll-behavior: smooth;
+        }
 
-  <style>
-    :root {
-      --bg-cream: #fbf8f2;
-      --deep-green: #0f2c27;
-      --gold: #bfa15f;
-      --gold-light: #dfc88b;
-      --text-muted: #5e6662;
-    }
+        body {
+            font-family: 'Manjari', sans-serif;
+            background: radial-gradient(circle at 50% 20%, #2e080e, var(--bg-color));
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-align: center;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
+        /* Ambient floating petals */
+        .ambient-petals {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            background: #ff5e7e;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.25;
+            animation: fall 12s linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translate(0, -10vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.35; }
+            100% { transform: translate(100px, 110vh) rotate(360deg); opacity: 0; }
+        }
 
-    html, body {
-      width: 100%;
-      min-height: 100%;
-      background-color: var(--bg-cream);
-      color: #1e2825;
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
-      position: relative;
-    }
+        /* Floating Music Toggle */
+        .music-btn {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 99;
+            background: rgba(46, 8, 14, 0.85);
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.2s, background 0.3s;
+        }
+        .music-btn:hover {
+            transform: scale(1.05);
+            background: rgba(74, 13, 19, 0.95);
+        }
+        .wave-bar {
+            width: 3px;
+            height: 14px;
+            background: var(--gold);
+            border-radius: 2px;
+            display: inline-block;
+        }
+        .playing .wave-bar {
+            animation: bounce 0.8s ease infinite alternate;
+        }
+        .playing .wave-bar:nth-child(2) { animation-delay: 0.2s; }
+        .playing .wave-bar:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes bounce {
+            0% { height: 4px; }
+            100% { height: 18px; }
+        }
 
-    /* Floating Hearts Animation */
-    .heart-particle {
-      position: fixed;
-      bottom: -30px;
-      color: var(--gold-light);
-      font-size: 1.2rem;
-      pointer-events: none;
-      z-index: 10;
-      animation: floatUp 7s linear infinite;
-      opacity: 0.6;
-    }
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+            position: relative;
+            z-index: 10;
+        }
 
-    @keyframes floatUp {
-      0% { transform: translateY(0) scale(0.8); opacity: 0; }
-      20% { opacity: 0.7; }
-      80% { opacity: 0.7; }
-      100% { transform: translateY(-110vh) scale(1.3); opacity: 0; }
-    }
+        .header-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 42px;
+            color: var(--gold);
+            text-shadow: 0 2px 10px rgba(223, 168, 73, 0.4);
+            margin-bottom: 5px;
+        }
 
-    /* 1. Cover Screen with Photo */
-    #cover {
-      position: fixed;
-      inset: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: var(--deep-green);
-      background-image: linear-gradient(rgba(15, 44, 39, 0.25), rgba(15, 44, 39, 0.88)), url('cover.jpg');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: center;
-      text-align: center;
-      padding: 40px 24px;
-      z-index: 99999;
-      transition: opacity 0.8s ease, visibility 0.8s ease;
-    }
+        .sub-title {
+            letter-spacing: 3px;
+            font-size: 12px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
 
-    #cover.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+        /* Miniature Cartoon Couple */
+        .couple-wrapper {
+            margin: 20px auto 30px;
+            width: 220px;
+            height: 150px;
+            position: relative;
+        }
+        .mini-couple {
+            width: 100%;
+            height: 100%;
+            animation: romanticSway 3.5s ease-in-out infinite alternate;
+            transform-origin: bottom center;
+        }
+        @keyframes romanticSway {
+            0% { transform: rotate(-3deg); }
+            100% { transform: rotate(3deg); }
+        }
+        .floating-heart {
+            position: absolute;
+            color: #ff3366;
+            font-size: 16px;
+            animation: floatHeart 2.5s ease-in infinite;
+        }
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(0.6); opacity: 1; }
+            100% { transform: translateY(-50px) scale(1.3); opacity: 0; }
+        }
 
-    .tagline {
-      font-size: 0.8rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-bottom: 12px;
-    }
+        /* Scratch Card Section */
+        .scratch-card-box {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            margin: 0 auto 35px;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(223, 168, 73, 0.25);
+            border: 2px solid var(--gold);
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+        }
 
-    .cover-initials {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
-      color: #ffffff;
-      line-height: 1;
-      margin-bottom: 15px;
-    }
+        /* Revealed Content Beneath */
+        .scratch-secret {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #2e080e, #1a0507);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            border-radius: 16px;
+        }
+        .secret-badge {
+            background: rgba(223, 168, 73, 0.2);
+            color: var(--gold);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            border: 1px solid var(--gold);
+            margin-bottom: 8px;
+        }
+        .secret-date {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gold-light);
+            margin-bottom: 5px;
+        }
+        .secret-hall {
+            font-size: 13px;
+            color: #ddd;
+            margin-bottom: 3px;
+        }
+        .secret-loc {
+            font-size: 11px;
+            color: #aaa;
+        }
 
-    .cover-initials span {
-      font-style: italic;
-      color: var(--gold-light);
-      font-size: 2.4rem;
-    }
+        /* Canvas Foil Layer */
+        #scratchCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            cursor: pointer;
+            z-index: 5;
+            transition: opacity 0.6s ease;
+        }
 
-    .cover-date {
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 30px;
-    }
+        /* 3D Shimmer Light Beam Effect */
+        .foil-shimmer {
+            position: absolute;
+            top: -50%; left: -60%;
+            width: 40%; height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(30deg);
+            animation: lightBeam 4s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 6;
+        }
+        @keyframes lightBeam {
+            0% { left: -60%; }
+            40%, 100% { left: 160%; }
+        }
 
-    .btn-open {
-      background: rgba(15, 44, 39, 0.7);
-      border: 1px solid var(--gold-light);
-      color: #ffffff;
-      padding: 14px 38px;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      animation: pulseBtn 2s infinite;
-    }
+        /* Scratch Me Ripple & Coin Guide */
+        .scratch-guide {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 7;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.3s;
+        }
+        .scratch-coin {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffe17d, #b8860b);
+            border: 2px dashed #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 0 15px rgba(255, 225, 125, 0.8);
+            animation: coinPulse 1.4s infinite alternate;
+        }
+        @keyframes coinPulse {
+            0% { transform: scale(0.9); }
+            100% { transform: scale(1.1); box-shadow: 0 0 25px rgba(255, 225, 125, 1); }
+        }
+        .scratch-guide-text {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #4a0d13;
+            background: rgba(255,255,255,0.85);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
 
-    @keyframes pulseBtn {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.04); }
-      100% { transform: scale(1); }
-    }
+        /* Sparkle Particle Canvas */
+        #particleCanvas {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 8;
+        }
 
-    section {
-      padding: 65px 24px;
-      text-align: center;
-      position: relative;
-    }
+        /* Countdown Section */
+        .countdown-title {
+            font-family: 'Cinzel', serif;
+            font-size: 15px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+        .timer-box {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+        .time-col {
+            background: rgba(74, 13, 19, 0.4);
+            border: 1px solid rgba(223, 168, 73, 0.4);
+            border-radius: 12px;
+            padding: 10px 14px;
+            min-width: 65px;
+        }
+        .time-num {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold-light);
+        }
+        .time-label {
+            font-size: 10px;
+            color: #bbb;
+            text-transform: uppercase;
+        }
 
-    .sub-head {
-      font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 15px;
-    }
-
-    .family-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 1.45rem;
-      color: #4a5450;
-      margin-bottom: 12px;
-    }
-
-    .couple-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 3.2rem;
-      line-height: 1.2;
-      color: #12211e;
-    }
-
-    .couple-title span {
-      display: block;
-      font-size: 1.9rem;
-      color: var(--gold);
-      margin: 4px 0;
-      font-style: italic;
-    }
-
-    .invitation-quote {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      max-width: 320px;
-      margin: 25px auto;
-      line-height: 1.6;
-    }
-
-    /* Scratch Card Container */
-    .scratch-container {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin: 30px auto 10px;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-      user-select: none;
-      -webkit-user-select: none;
-      touch-action: none;
-    }
-
-    .scratch-secret {
-      position: absolute;
-      inset: 0;
-      background: #dfcb9f;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .scratch-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 5;
-      cursor: grab;
-      transition: opacity 0.5s ease;
-    }
-
-    .scratch-canvas.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .scratch-hint {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 10px;
-    }
-
-    /* Buttons */
-    .action-btn {
-      display: inline-block;
-      margin-top: 20px;
-      background: var(--deep-green);
-      color: var(--gold-light);
-      border: 1px solid var(--gold);
-      padding: 12px 26px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      font-weight: 500;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-
-    /* Live Timer */
-    .timer-sec {
-      background-color: var(--deep-green);
-      color: #ffffff;
-      padding: 50px 20px;
-    }
-
-    .timer-grid {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      margin-top: 25px;
-    }
-
-    .time-unit { min-width: 58px; }
-    .time-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      color: #ffffff;
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .time-label {
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-    }
-
-    /* Venue */
-    .venue-sec {
-      background: var(--deep-green);
-      color: #ffffff;
-      padding: 70px 20px;
-    }
-    .venue-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem;
-      margin: 15px 0 6px;
-    }
-    .venue-place {
-      font-size: 0.9rem;
-      opacity: 0.85;
-      margin-bottom: 25px;
-    }
-
-    /* Footer */
-    footer {
-      background-color: #091d19;
-      padding: 45px 20px 80px;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    /* Audio Float Button */
-    #music-btn {
-      position: fixed;
-      bottom: 24px;
-      right: 20px;
-      background: rgba(15, 44, 39, 0.9);
-      border: 1px solid var(--gold-light);
-      color: #ffffff;
-      border-radius: 30px;
-      padding: 10px 18px;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      cursor: pointer;
-      z-index: 1000;
-      display: none;
-      backdrop-filter: blur(6px);
-    }
-  </style>
+        /* Venue Box */
+        .venue-card {
+            background: rgba(46, 8, 14, 0.5);
+            border: 1px solid var(--gold);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .venue-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        .venue-card p {
+            color: #ddd;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Background Music Player -->
-  <audio id="bg-audio" loop>
-    <source src="song.mp3" type="audio/mpeg">
-  </audio>
+    <!-- Ambient falling petals -->
+    <div class="ambient-petals" id="petals"></div>
 
-  <!-- Audio Control Button -->
-  <button id="music-btn" onclick="toggleAudio()">&#9834; <span id="music-txt">Pause</span></button>
+    <!-- Music Player with song1.mp3 -->
+    <button class="music-btn" id="musicBtn" onclick="toggleAudio()">
+        <span>🎵 Music</span>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+    </button>
+    <audio id="bgMusic" loop preload="auto">
+        <source src="song1.mp3" type="audio/mp3">
+    </audio>
 
-  <!-- 1. Cover Screen with Photo & A&M Initials -->
-  <div id="cover">
-    <p class="tagline">A Celebration of Love</p>
-    <div class="cover-initials">A <span>&amp;</span> M</div>
-    <p class="cover-date">Save the Date &middot; 24 October 2026</p>
-    <button class="btn-open" onclick="openInvitation()">Tap to Open &#10022;</button>
-  </div>
+    <div class="container">
+        <h1 class="header-title">Together Forever</h1>
+        <p class="sub-title">Save The Date</p>
 
-  <!-- 2. Hero Section: Anil weds Moopan -->
-  <section>
-    <p class="sub-head">With Joy in Our Hearts</p>
-    <p class="family-text">Together with their families</p>
-    <h1 class="couple-title">
-      Anil
-      <span>&amp;</span>
-      Moopan
-    </h1>
-    <p class="invitation-quote">
-      invite you to witness the beginning of our lifetime &mdash; a day woven with love, laughter, and the people who mean the most.
-    </p>
-  </section>
+        <!-- Cute Miniature Couple Chibi Dance -->
+        <div class="couple-wrapper">
+            <div class="floating-heart" style="left: 20%; animation-delay: 0s;">💖</div>
+            <div class="floating-heart" style="left: 75%; animation-delay: 1.2s;">✨</div>
+            <svg class="mini-couple" viewBox="0 0 200 140">
+                <!-- Groom (Left) -->
+                <g id="groom">
+                    <circle cx="75" cy="50" r="24" fill="#ffdbac"/>
+                    <path d="M51 45 C51 25, 99 25, 99 45 C95 32, 60 30, 51 45 Z" fill="#2c1a0e"/>
+                    <circle cx="68" cy="50" r="3" fill="#222"/>
+                    <circle cx="82" cy="50" r="3" fill="#222"/>
+                    <path d="M72 58 Q75 62 78 58" stroke="#333" stroke-width="1.5" fill="none"/>
+                    <path d="M52 74 L98 74 L94 130 L56 130 Z" fill="#fff" stroke="#dfa849" stroke-width="2"/>
+                    <!-- Gold Neriyathu / Kasavu -->
+                    <path d="M55 74 L95 125" stroke="#dfa849" stroke-width="4"/>
+                </g>
+                <!-- Bride (Right) -->
+                <g id="bride">
+                    <circle cx="125" cy="53" r="23" fill="#ffdbac"/>
+                    <path d="M102 48 C102 24, 148 24, 148 48 C145 32, 108 30, 102 48 Z" fill="#2c1a0e"/>
+                    <!-- Jasmine Flowers (Mulla Poo) -->
+                    <circle cx="140" cy="40" r="4" fill="#fff"/>
+                    <circle cx="144" cy="46" r="4" fill="#fff"/>
+                    <circle cx="142" cy="52" r="4" fill="#fff"/>
+                    <!-- Eyes & Smile -->
+                    <circle cx="118" cy="53" r="3" fill="#222"/>
+                    <circle cx="132" cy="53" r="3" fill="#222"/>
+                    <circle cx="125" cy="47" r="2.5" fill="#c00"/>
+                    <path d="M122 61 Q125 65 128 61" stroke="#333" stroke-width="1.5" fill="none"/>
+                    <!-- Kasavu Saree -->
+                    <path d="M106 76 L144 76 L148 130 L102 130 Z" fill="#fff" stroke="#dfa849" stroke-width="2"/>
+                    <path d="M108 82 Q125 95 142 82" stroke="#dfa849" stroke-width="3" fill="none"/>
+                </g>
+            </svg>
+        </div>
 
-  <!-- 3. Interactive Scratch Card Section -->
-  <section style="background: rgba(0,0,0,0.02);">
-    <p class="sub-head">Scratch to Reveal the Date</p>
-    <h2 class="couple-title" style="font-size: 2.2rem;">One Beautiful<br>Beginning</h2>
-    
-    <div class="scratch-container" id="scratchBox">
-      <!-- Hidden secret reveal card underneath -->
-      <div class="scratch-secret">
-        <p style="font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; color: #2b3935;">October</p>
-        <p style="font-family: 'Cormorant Garamond', serif; font-size: 4.8rem; line-height: 1; color: var(--deep-green); margin: 6px 0;">24</p>
-        <p style="font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase; color: #3b4743;">Saturday &middot; 2026<br><br>11:00 AM</p>
-        <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: var(--deep-green); margin-top: 10px;">Anil &amp; Moopan</p>
-      </div>
-      <!-- Scratchable Canvas Overlay -->
-      <canvas class="scratch-canvas" id="scratchCanvas"></canvas>
+        <!-- Luxury Scratch Card -->
+        <div class="scratch-card-box">
+            <!-- Hidden details -->
+            <div class="scratch-secret">
+                <span class="secret-badge">💍 You're Invited</span>
+                <div class="secret-date">October 24, 2026</div>
+                <div class="secret-hall">EMS Community Hall</div>
+                <div class="secret-loc">Alappuzha, Kerala</div>
+            </div>
+
+            <!-- Canvas for Scratching -->
+            <canvas id="scratchCanvas" width="320" height="220"></canvas>
+
+            <!-- 3D Shimmer Light Beam -->
+            <div class="foil-shimmer" id="foilShimmer"></div>
+
+            <!-- Sparkle Dust Layer -->
+            <canvas id="particleCanvas" width="320" height="220"></canvas>
+
+            <!-- Scratch Guide -->
+            <div class="scratch-guide" id="scratchGuide">
+                <div class="scratch-coin">🪙</div>
+                <div class="scratch-guide-text">SCRATCH HERE</div>
+            </div>
+        </div>
+
+        <!-- Countdown -->
+        <div class="countdown-title">Counting Down To The Big Day</div>
+        <div class="timer-box">
+            <div class="time-col"><div class="time-num" id="d">00</div><div class="time-label">Days</div></div>
+            <div class="time-col"><div class="time-num" id="h">00</div><div class="time-label">Hours</div></div>
+            <div class="time-col"><div class="time-num" id="m">00</div><div class="time-label">Mins</div></div>
+            <div class="time-col"><div class="time-num" id="s">00</div><div class="time-label">Secs</div></div>
+        </div>
+
+        <!-- Venue Details -->
+        <div class="venue-card">
+            <h3>Venue & Details</h3>
+            <p><strong>EMS Community Hall</strong><br>Alappuzha, Kerala<br>2026 ഒക്ടോബർ 24</p>
+        </div>
     </div>
-    
-    <p class="scratch-hint" id="scratchStatus">&#9998; Scratch the card with your finger!</p>
-    
-    <!-- Save to Phone Calendar Button -->
-    <a class="action-btn" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Anil+weds+Moopan+Wedding&dates=20261024T053000Z/20261024T093000Z&details=Wedding+Celebration+of+Anil+and+Moopan&location=EMS+Community+Hall,+Paravoor,+Alappuzha" target="_blank">&#128197; Add to Google Calendar</a>
-  </section>
 
-  <!-- 4. Live Countdown Timer -->
-  <section class="timer-sec">
-    <p class="sub-head" style="color: var(--gold-light);">Counting Down to Forever</p>
-    <div class="timer-grid">
-      <div class="time-unit"><div class="time-num" id="d">00</div><div class="time-label">Days</div></div>
-      <div class="time-unit"><div class="time-num" id="h">00</div><div class="time-label">Hours</div></div>
-      <div class="time-unit"><div class="time-num" id="m">00</div><div class="time-label">Minutes</div></div>
-      <div class="time-unit"><div class="time-num" id="s">00</div><div class="time-label">Seconds</div></div>
-    </div>
-  </section>
+    <script>
+        // Background Audio Handling
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        let isPlaying = false;
 
-  <!-- 5. Venue Section -->
-  <section class="venue-sec">
-    <p class="sub-head" style="color: var(--gold-light);">The Celebration</p>
-    <h2 class="venue-name">EMS Community Hall</h2>
-    <p class="venue-place">Paravoor, Alappuzha</p>
-    <a class="action-btn" style="background: transparent; color: #ffffff; border-color: var(--gold-light);" href="https://maps.google.com/?q=EMS+Community+Hall+Paravoor+Alappuzha" target="_blank">&#128205; Open in Google Maps</a>
-  </section>
-
-  <!-- 6. Footer & RSVP Wish -->
-  <footer>
-    <div class="cover-initials" style="font-size: 2.2rem; margin-bottom: 8px;">A <span>&amp;</span> M</div>
-    <p style="font-style: italic; color: #dfc88b; font-size: 0.95rem;">We cannot wait to celebrate with you.</p>
-    <br>
-    <a class="action-btn" style="background: #25D366; color: #ffffff; border: none;" href="https://api.whatsapp.com/send?text=Hearty%20Congratulations%20Anil%20and%20Moopan!%20Excited%20for%20the%20wedding!" target="_blank">&#128172; Send Wishes on WhatsApp</a>
-    <p style="font-size: 0.7rem; letter-spacing: 0.2em; opacity: 0.6; margin-top: 25px;">24 &middot; 10 &middot; 2026</p>
-  </footer>
-
-  <script>
-    // Audio Player Controls
-    const audio = document.getElementById('bg-audio');
-    const musicBtn = document.getElementById('music-btn');
-    const musicTxt = document.getElementById('music-txt');
-
-    function openInvitation() {
-      document.getElementById('cover').classList.add('hidden');
-      musicBtn.style.display = 'block';
-      audio.play().catch(() => {
-        musicTxt.textContent = 'Play';
-      });
-      createFloatingHearts();
-    }
-
-    function toggleAudio() {
-      if (audio.paused) {
-        audio.play();
-        musicTxt.textContent = 'Pause';
-      } else {
-        audio.pause();
-        musicTxt.textContent = 'Play';
-      }
-    }
-
-    // Live Countdown
-    const targetDate = new Date('2026-10-24T11:00:00').getTime();
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const diff = targetDate - now;
-      if (diff <= 0) return;
-
-      document.getElementById('d').innerText = String(Math.floor(diff / (1000 * 60 * 60 * 24))).padStart(2, '0');
-      document.getElementById('h').innerText = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
-      document.getElementById('m').innerText = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
-      document.getElementById('s').innerText = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // Floating Hearts Generation
-    function createFloatingHearts() {
-      const symbols = ['&#10084;', '&#10022;', '&#9825;'];
-      setInterval(() => {
-        const heart = document.createElement('div');
-        heart.className = 'heart-particle';
-        heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-        heart.style.left = Math.random() * 95 + 'vw';
-        heart.style.animationDuration = (5 + Math.random() * 5) + 's';
-        document.body.appendChild(heart);
-        setTimeout(() => heart.remove(), 9000);
-      }, 700);
-    }
-
-    // HTML5 Scratch Card Logic
-    const canvas = document.getElementById('scratchCanvas');
-    const ctx = canvas.getContext('2d');
-    const box = document.getElementById('scratchBox');
-    let isDrawing = false;
-    let isRevealed = false;
-
-    function initScratchCard() {
-      const rect = box.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
-
-      // Draw Gold Shimmer Scratch Surface
-      const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      grad.addColorStop(0, '#cca855');
-      grad.addColorStop(0.5, '#f7e7a9');
-      grad.addColorStop(1, '#a67d30');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Card overlay decoration text
-      ctx.fillStyle = '#0f2c27';
-      ctx.font = '600 15px Montserrat';
-      ctx.textAlign = 'center';
-      ctx.fillText('✨ SCRATCH WITH FINGER ✨', canvas.width / 2, canvas.height / 2);
-    }
-
-    function getCoords(e) {
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      };
-    }
-
-    function scratch(e) {
-      if (!isDrawing || isRevealed) return;
-      e.preventDefault();
-      const pos = getCoords(e);
-
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.beginPath();
-      ctx.arc(pos.x, pos.y, 25, 0, Math.PI * 2);
-      ctx.fill();
-
-      checkScratchPercentage();
-    }
-
-    function checkScratchPercentage() {
-      if (isRevealed) return;
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      let cleared = 0;
-      for (let i = 3; i < imgData.data.length; i += 16) {
-        if (imgData.data[i] === 0) cleared++;
-      }
-      const percent = (cleared / (imgData.data.length / 16)) * 100;
-      if (percent > 45) {
-        isRevealed = true;
-        canvas.classList.add('fade-out');
-        document.getElementById('scratchStatus').innerText = '🎉 Date Revealed! Save it to your calendar!';
-        // Confetti Fireworks Blast!
-        if (typeof confetti === 'function') {
-          confetti({
-            particleCount: 80,
-            spread: 70,
-            origin: { y: 0.6 }
-          });
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                musicBtn.classList.remove('playing');
+                isPlaying = false;
+            } else {
+                audio.play().then(() => {
+                    musicBtn.classList.add('playing');
+                    isPlaying = true;
+                }).catch(() => {});
+            }
         }
-      }
-    }
+        document.body.addEventListener('click', function initPlay() {
+            if (!isPlaying) toggleAudio();
+            document.body.removeEventListener('click', initPlay);
+        }, { once: true });
 
-    canvas.addEventListener('mousedown', () => isDrawing = true);
-    window.addEventListener('mouseup', () => isDrawing = false);
-    canvas.addEventListener('mousemove', scratch);
+        // Floating Rose Petals
+        const petalContainer = document.getElementById('petals');
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.width = (10 + Math.random() * 12) + 'px';
+            p.style.height = (12 + Math.random() * 14) + 'px';
+            p.style.animationDelay = (Math.random() * 8) + 's';
+            p.style.animationDuration = (8 + Math.random() * 7) + 's';
+            petalContainer.appendChild(p);
+        }
 
-    canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, { passive: false });
-    window.addEventListener('touchend', () => isDrawing = false);
-    canvas.addEventListener('touchmove', scratch, { passive: false });
+        // Live Countdown to Oct 24, 2026
+        const weddingDate = new Date("October 24, 2026 10:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+            if (distance > 0) {
+                document.getElementById('d').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+                document.getElementById('h').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('m').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('s').innerText = Math.floor((distance % (1000 * 60)) / 1000);
+            }
+        }, 1000);
 
-    window.addEventListener('load', initScratchCard);
-  </script>
+        // Gold Foil Scratch Card + Particles
+        const canvas = document.getElementById('scratchCanvas');
+        const ctx = canvas.getContext('2d');
+        const pCanvas = document.getElementById('particleCanvas');
+        const pCtx = pCanvas.getContext('2d');
+        const guide = document.getElementById('scratchGuide');
+        const shimmer = document.getElementById('foilShimmer');
+
+        let isDrawing = false;
+        let isRevealed = false;
+        let particles = [];
+
+        // Draw Gold Foil Surface
+        function setupGoldFoil() {
+            const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            grad.addColorStop(0, '#d4af37');
+            grad.addColorStop(0.3, '#f5d77f');
+            grad.addColorStop(0.6, '#aa771c');
+            grad.addColorStop(1, '#e6ca65');
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Subtle Damask Pattern
+            ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+            ctx.lineWidth = 1.5;
+            for (let i = -100; i < canvas.width + 100; i += 22) {
+                ctx.beginPath();
+                ctx.arc(i, 110, 40, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+        }
+        setupGoldFoil();
+
+        // Sparkle & Gold Dust Animation Loop
+        function addGoldDust(x, y) {
+            for (let i = 0; i < 6; i++) {
+                particles.push({
+                    x: x + (Math.random() - 0.5) * 20,
+                    y: y + (Math.random() - 0.5) * 20,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: (Math.random() - 0.5) * 3 - 1,
+                    size: Math.random() * 3 + 1,
+                    color: Math.random() > 0.4 ? '#ffe27d' : '#fff',
+                    life: 1
+                });
+            }
+        }
+
+        function renderParticles() {
+            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life -= 0.035;
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                    continue;
+                }
+                pCtx.save();
+                pCtx.globalAlpha = p.life;
+                pCtx.fillStyle = p.color;
+                pCtx.shadowBlur = 8;
+                pCtx.shadowColor = '#ffd700';
+                pCtx.beginPath();
+                pCtx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                pCtx.fill();
+                pCtx.restore();
+            }
+            requestAnimationFrame(renderParticles);
+        }
+        renderParticles();
+
+        function scratch(e) {
+            if (!isDrawing || isRevealed) return;
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+            const x = clientX - rect.left;
+            const y = clientY - rect.top;
+
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(x, y, 22, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Hide guide icon immediately upon scratching
+            if (guide) guide.style.opacity = '0';
+            if (shimmer) shimmer.style.display = 'none';
+
+            addGoldDust(x, y);
+            checkScratchPercentage();
+        }
+
+        function checkScratchPercentage() {
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            let cleared = 0;
+            for (let i = 3; i < imgData.data.length; i += 32) {
+                if (imgData.data[i] === 0) cleared++;
+            }
+            const total = imgData.data.length / 32;
+            if (cleared / total > 0.42 && !isRevealed) {
+                revealCelebration();
+            }
+        }
+
+        function revealCelebration() {
+            isRevealed = true;
+            canvas.style.opacity = '0';
+            setTimeout(() => { canvas.style.display = 'none'; }, 600);
+
+            // Celebration Blast (Confetti & Fireworks)
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#dfa849', '#ffffff', '#ff3366', '#ffd700']
+                });
+                setTimeout(() => {
+                    confetti({
+                        particleCount: 50,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#dfa849', '#f3b05a']
+                    });
+                    confetti({
+                        particleCount: 50,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#dfa849', '#f3b05a']
+                    });
+                }, 300);
+            }
+        }
+
+        // Mouse & Touch events
+        ['mousedown', 'touchstart'].forEach(evt => {
+            canvas.addEventListener(evt, (e) => {
+                isDrawing = true;
+                scratch(e);
+            }, { passive: true });
+        });
+
+        ['mousemove', 'touchmove'].forEach(evt => {
+            canvas.addEventListener(evt, (e) => {
+                scratch(e);
+            }, { passive: true });
+        });
+
+        ['mouseup', 'mouseleave', 'touchend'].forEach(evt => {
+            window.addEventListener(evt, () => { isDrawing = false; });
+        });
+    </script>
 </body>
 </html>
